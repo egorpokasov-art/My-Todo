@@ -1,0 +1,137 @@
+.todo {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  padding: 24px;
+}
+
+.todo__title {
+  text-align: center;
+  font-size: 27px;
+  text-box: var(--text-box);
+}
+
+.todo__info {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 16px;
+  align-items: center;
+  font-weight: 600;
+}
+
+.todo__total-tasks  {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+}
+
+.todo__delete-all-button {
+  border: none;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: default;
+}
+
+.todo__delete-all-button:not(.is-visible) {
+  display: none;
+}
+
+.todo__list {
+  --listItemsRowGap: 8px;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--listItemsRowGap);
+
+  &:empty {
+    display: none;
+  }
+}
+
+.todo__empty-message {
+  text-align: center;
+  color: var(--color-gray-1);
+
+  &:empty {
+    display: none;
+  }
+}
+
+@media (hover: hover) {
+  .todo__delete-all-button:hover {
+    opacity: 0.7;
+  }
+}
+
+.div {
+  box-sizing: border-box;
+  max-width: 400px;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.elem {
+  display: grid;
+  grid-template-columns: 42px auto 46px;
+  grid-template-rows: min-content;
+  grid-template-areas: 'checkbox label delete-button'
+                       'checkbox data delete-button';
+  /*gap: 5px;*/
+}
+
+.input {
+  width: 20px;
+  aspect-ratio: 1;
+  grid-area: checkbox;
+  align-self: center;
+  justify-self: center;
+}
+
+.label {
+  display: block;
+
+  &:has(.text.is-open) .preview {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+.preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.text {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition-duration: 0.35s;
+  overflow: hidden;
+
+  &.is-open {
+    grid-template-rows: 1fr;
+  }
+}
+
+.wrapper {
+  display: block;
+  min-height: 0;
+}
+
+.data {
+  grid-area: data;
+  display: block;
+}
+
+.delete-button {
+  width: 46px;
+  grid-area: delete-button;
+}
