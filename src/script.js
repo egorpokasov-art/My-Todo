@@ -11,15 +11,19 @@ class Todo {
     item: '[data-js-todo-item]',
     itemCheckbox: '[data-js-todo-item-checkbox]',
     itemLabel: '[data-js-todo-item-label]',
+    itemUnwrapButton: '[data-js-todo-item-unwrap-button]',
     itemDeleteButton: '[data-js-todo-item-delete-button]',
+    itemData: '[data-js-todo-item-data]',
     emptyMessage: '[data-js-todo-empty-message]',
   }
 
   stateClasses = {
     isVisible: 'is-visible',
     isDisappearing: 'is-disappearing',
-    isLineThrow: 'is-line-throw',
+    isOpening: 'is-opening',
   }
+
+  itemLabelInitialHeight = '24px'
 
   localStorageKey = 'todo-items'
 
@@ -82,25 +86,30 @@ class Todo {
           class="todo__item-label"
           data-js-todo-item-label
         >
-          <span
-        class="preview"
-      >
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda ex maxime
-        necessitatibus quia repudiandae! Aut eaque est incidunt maiores minus nostrum, perferendis
-        quis reprehenderit rerum similique sint soluta veniam vitae.
-      </span>
-      <span
-        data-js-text
-        class="text"
-      >
-        <span class="wrapper">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda ex maxime
-          necessitatibus quia repudiandae! Aut eaque est incidunt maiores minus nostrum, perferendis
-          quis reprehenderit rerum similique sint soluta veniam vitae.
-        </span>
-      </span>
           ${title}
         </label>
+        <span class="todo__item-data" data-js-todo-item-data>
+          Дата
+        </span>
+        <button 
+          class="todo__item-unwrap-button" 
+          type="button"
+          data-js-todo-item-unwrap-button
+        >
+          <?xml version="1.0" encoding="utf-8"?>
+          <svg
+            width="20px" height="20px" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 
+              16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 
+              10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 
+              9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 
+              9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" fill="#0F0F0F"
+            />
+          </svg>
+        </button>
         <button
           class="todo__item-delete-button"
           type="button"
@@ -201,6 +210,10 @@ class Todo {
     this.saveItemsToLocalStorage()
   }
 
+  // animateLabelHeight() {
+  //
+  // }
+
   filter(searchQuery) {
     const queryFormatted = searchQuery.toLowerCase()
 
@@ -277,6 +290,27 @@ class Todo {
     // }
   }
 
+  onUnwrapButtonClick = ({ target }) => {
+    if (target.matches(this.selectors.itemUnwrapButton)) {
+      const item = target.closest(this.selectors.item)
+      const itemLabel = item.querySelector(this.selectors.itemLabel)
+      const itemUnwrapButton = item.querySelector(this.selectors.itemUnwrapButton)
+
+      itemLabel.classList.toggle(this.stateClasses.isOpening)
+
+      if (itemLabel.classList.contains(this.stateClasses.isOpening)) {
+        itemLabel.style.height = (itemLabel.scrollHeight + 'px')
+      } else {
+        itemLabel.style.height = this.itemLabelInitialHeight
+      }
+
+      // if (getComputedStyle(itemLabel).height >= '24px') {
+      //   itemUnwrapButton.style.display = 'none'
+      // }
+    }
+  }
+
+
   onDeleteAllButtonClick = () => {
     this.state.items = []
     this.resetFilter()
@@ -288,18 +322,11 @@ class Todo {
     this.newTaskFormElement.addEventListener('submit', this.onNewTaskFormSubmit)
     this.searchTaskFormElement.addEventListener('submit', this.onSearchTaskFormSubmit)
     this.searchTaskInputElement.addEventListener('input', this.onSearchTaskInput)
-    this.listElement.addEventListener('click', this.onDeleteItemButtonClick)
     this.listElement.addEventListener('change', this.onItemCheckboxChange)
+    this.listElement.addEventListener('click', this.onUnwrapButtonClick)
+    this.listElement.addEventListener('click', this.onDeleteItemButtonClick)
     this.deleteAllButtonElement.addEventListener('click', this.onDeleteAllButtonClick)
   }
 }
 
 new Todo()
-
-const label = document.querySelector('[data-js-label]')
-const text = document.querySelector('[data-js-text]')
-const button = document.querySelector('[data-js-button]')
-
-button.addEventListener('click', () => {
-  text.classList.toggle('is-open')
-})

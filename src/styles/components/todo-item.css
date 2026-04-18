@@ -1,47 +1,14 @@
-/*.todo__item {*/
-/*  display: grid;*/
-/*  grid-template-columns: min-content 1fr min-content;*/
-/*  grid-template-areas:*/
-/*          "checkbox label delete-button"*/
-/*          "checkbox date delete-button";*/
-/*  column-gap: 12px;*/
-/*  row-gap: 15px;*/
-/*  width: 100%;*/
-/*  min-height: var(--input-height);*/
-/*  border: var(--border);*/
-/*  border-radius: var(--border-radius);*/
-/*  background-color: transparent;*/
-/*  padding-left: 10px;*/
-/*  padding-block: 15px;*/
-/*}*/
-
-/*.todo__item-label {*/
-/*  grid-area: label;*/
-/*  text-box: var(--text-box);*/
-/*}*/
-
-/*.todo__item-date {*/
-/*  grid-area: date;*/
-/*  font-size: 14px;*/
-/*  text-box: var(--text-box);*/
-/*}*/
-
-/*.todo__item-delete-button {*/
-/*  grid-area: delete-button;*/
-/*  align-self: center;*/
-/*  justify-self: center;*/
-/*  padding: 0;*/
-/*}*/
-
 .todo__item {
-  height: var(--item-height);
-  display: flex;
-  align-items: center;
-  column-gap: 12px;
+  /*height: var(--item-height);*/
+  display: grid;
+  grid-template-columns: 42px auto 40px 40px;
+  grid-auto-rows: min-content;
+  grid-template-areas:
+          "checkbox label unwrap-button delete-button"
+          "checkbox data unwrap-button delete-button";
   border: var(--border);
   border-radius: var(--border-radius);
   background-color: transparent;
-  padding-left: 10px;
   transition-duration: calc(var(--transition-duration) * 2);
   will-change: translate, opacity;
 
@@ -56,16 +23,20 @@
       transition-delay: calc(var(--transition-duration) * 2);
     }
   }
+
+  &:has(.todo__item-label.is-opening) .todo__item-unwrap-button svg {
+    rotate: 180deg;
+  }
 }
 
 .todo__item-checkbox {
+  grid-area: checkbox;
   flex-shrink: 0;
   appearance: none;
   width: 20px;
   aspect-ratio: 1;
   border-radius: 4px;
   border: 1px solid var(--color-gray-2);
-  grid-area: checkbox;
   align-self: center;
   justify-self: center;
   margin: 0;
@@ -78,53 +49,85 @@
     & + .todo__item-label {
       color: var(--color-gray-2);
       text-decoration: line-through;
-
-      /*&::after {*/
-      /*  animation: lineThrow 0.5s linear;*/
-      /*}*/
     }
   }
 }
 
 .todo__item-label {
-  position: relative;
-  text-box: var(--text-box);
+  grid-area: label;
+  height: 24px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   cursor: default;
+  transition-duration: calc(var(--transition-duration) * 2);
 
-  /*&.is-line-throw {*/
-  /*  text-decoration: line-through;*/
-  /*}*/
-
-  /*&::after {*/
-  /*  display: block;*/
-  /*  content: '';*/
-  /*  position: absolute;*/
-  /*  top: 52%;*/
-  /*  left: 0;*/
-  /*  width: 0;*/
-  /*  height: 1px;*/
-  /*  border: none;*/
-  /*  border-radius: 1px;*/
-  /*  background-color: var(--color-gray-2);*/
-  /*}*/
+  &.is-opening {
+    white-space: normal;
+    text-overflow: clip;
+    overflow: clip;
+    word-break: break-word;
+  }
 }
 
-.todo__item-delete-button {
-  flex-shrink: 0;
-  width: 46px;
-  aspect-ratio: 1;
+.todo__item-data {
+  font-family: var(--font-family-date), sans-serif;
+  font-size: 14px;
+}
+
+.todo__item-unwrap-button {
+  grid-area: unwrap-button;
+  align-self: center;
+  justify-self: center;
+  width: 40px;
+  height: 102%;
   display: flex;
   align-items: center;
   justify-content: center;
-  translate: 1px 0;
+  border: none;
+  background-color: transparent;
+  cursor: default;
+  padding: 0;
+
+  & svg {
+    width: 20px;
+    aspect-ratio: 1;
+    transition-duration: var(--transition-duration);
+  }
+
+  * {
+    pointer-events: none;
+  }
+}
+
+.todo__item-delete-button {
+  position: relative;
+  grid-area: delete-button;
+  width: 40px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color-dark);
-  border: 1px solid var(--color-gray-3);
+  border: none;
   border-radius: 0 var(--border-radius) var(--border-radius) 0;
   background-color: transparent;
   margin-left: auto;
   padding: 0;
   cursor: default;
   transition-duration: 0.2s;
+
+  &::after {
+    content: '';
+    width: 1px;
+    height: 70%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    translate: 0 -50%;
+    background-color: var(--color-gray-3);
+  }
 
   & svg {
     scale: 1.7;
@@ -148,9 +151,12 @@
 
 @media (hover: hover) {
   .todo__item:hover {
-    /*background-color: var(--color-gray-4);*/
     translate: 0 -2px;
     box-shadow: 7px 7px 10px var(--color-gray-4);
+  }
+
+  .todo__item-unwrap-button:hover {
+    background-color: var(--color-gray-4);
   }
 
   .todo__item-delete-button:hover {
