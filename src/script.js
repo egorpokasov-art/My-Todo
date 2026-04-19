@@ -21,9 +21,12 @@ class Todo {
     isVisible: 'is-visible',
     isDisappearing: 'is-disappearing',
     isOpening: 'is-opening',
+    isHidden: 'is-hidden',
   }
 
-  itemLabelInitialHeight = '24px'
+  itemLabelInitialHeight = '26px'
+
+  maxLabelTextContentLength = 27
 
   localStorageKey = 'todo-items'
 
@@ -72,7 +75,7 @@ class Todo {
 
     console.log(this.state)
 
-    this.listElement.innerHTML = items.map(({ id, title, isChecked }) => `
+    this.listElement.innerHTML = items.map(({ id, title, date, isChecked, isTitleTooLong }) => `
       <li class="todo__item" data-js-todo-item>
         <input
           type="checkbox"
@@ -89,10 +92,10 @@ class Todo {
           ${title}
         </label>
         <span class="todo__item-data" data-js-todo-item-data>
-          Дата
+          ${date}
         </span>
         <button 
-          class="todo__item-unwrap-button" 
+          class="todo__item-unwrap-button ${isTitleTooLong ? '' : 'is-hidden'}" 
           type="button"
           data-js-todo-item-unwrap-button
         >
@@ -162,16 +165,23 @@ class Todo {
     this.manageInfo()
   }
 
-  // getItemDate() {
-  //   const date = new Date()
-  // }
+  getItemDate() {
+    const date = new Date()
+    const month = date.toLocaleString('en', { month: "short" })
+    const weekday = date.toLocaleString('en', { weekday: "short" })
+    const day = date.toLocaleString('en', { day: "2-digit" })
+    const time = date.toLocaleString('ru-RU', { hour: "2-digit", minute: "2-digit" })
 
-  addItem(title) {
+    return `${weekday}, ${month} ${day} at ${time}`
+  }
+
+  addItem(title, isTitleTooLong) {
     this.state.items.push({
       id: crypto?.randomUUID() ?? Date.now().toString(),
       title,
-      // date: ,
+      date: this.getItemDate(),
       isChecked: false,
+      isTitleTooLong,
     })
     this.updateItems()
     this.saveItemsToLocalStorage()
@@ -210,9 +220,18 @@ class Todo {
     this.saveItemsToLocalStorage()
   }
 
-  // animateLabelHeight() {
-  //
-  // }
+  animateLabelHeight(unwrapButton) {
+    const item = unwrapButton.closest(this.selectors.item)
+    const itemLabel = item.querySelector(this.selectors.itemLabel)
+
+    itemLabel.classList.toggle(this.stateClasses.isOpening)
+
+    if (itemLabel.classList.contains(this.stateClasses.isOpening)) {
+      itemLabel.style.height = (itemLabel.scrollHeight + 'px')
+    } else {
+      itemLabel.style.height = this.itemLabelInitialHeight
+    }
+  }
 
   filter(searchQuery) {
     const queryFormatted = searchQuery.toLowerCase()
@@ -240,8 +259,11 @@ class Todo {
   onNewTaskFormSubmit = (event) => {
     event.preventDefault()
 
+    const isTitleTooLong =
+      this.newTaskInputElement.value.trim().length >= this.maxLabelTextContentLength
+
     if (this.newTaskInputElement.value.trim().length > 0) {
-      this.addItem(this.newTaskInputElement.value)
+      this.addItem(this.newTaskInputElement.value, isTitleTooLong)
       this.newTaskInputElement.value = ''
       this.newTaskInputElement.focus()
     }
@@ -292,24 +314,9 @@ class Todo {
 
   onUnwrapButtonClick = ({ target }) => {
     if (target.matches(this.selectors.itemUnwrapButton)) {
-      const item = target.closest(this.selectors.item)
-      const itemLabel = item.querySelector(this.selectors.itemLabel)
-      const itemUnwrapButton = item.querySelector(this.selectors.itemUnwrapButton)
-
-      itemLabel.classList.toggle(this.stateClasses.isOpening)
-
-      if (itemLabel.classList.contains(this.stateClasses.isOpening)) {
-        itemLabel.style.height = (itemLabel.scrollHeight + 'px')
-      } else {
-        itemLabel.style.height = this.itemLabelInitialHeight
-      }
-
-      // if (getComputedStyle(itemLabel).height >= '24px') {
-      //   itemUnwrapButton.style.display = 'none'
-      // }
+      this.animateLabelHeight(target)
     }
   }
-
 
   onDeleteAllButtonClick = () => {
     this.state.items = []

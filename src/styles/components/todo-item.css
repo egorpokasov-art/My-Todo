@@ -1,16 +1,47 @@
 .todo__item {
-  /*height: var(--item-height);*/
+  position: relative;
+  z-index: 10;
   display: grid;
-  grid-template-columns: 42px auto 40px 40px;
+  grid-template-columns: 65px auto 42px 40px;
   grid-auto-rows: min-content;
   grid-template-areas:
           "checkbox label unwrap-button delete-button"
           "checkbox data unwrap-button delete-button";
+  row-gap: 5px;
   border: var(--border);
   border-radius: var(--border-radius);
-  background-color: transparent;
+  background-color: var(--color-wight);
   transition-duration: calc(var(--transition-duration) * 2);
   will-change: translate, opacity;
+  margin-left: 3px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    border: none;
+    border-radius: inherit;
+    background-color: var(--color-wight);
+    transition-duration: var(--transition-duration);
+  }
+
+  &::after{
+    content: '';
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    right: 4px;
+    width: 100%;
+    height: 100%;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-dark);
+  }
+
+  &:has(.todo__item-checkbox:checked) {
+    animation: scale 0.3s ease;
+  }
 
   &.is-disappearing {
     opacity: 0;
@@ -39,12 +70,12 @@
   border: 1px solid var(--color-gray-2);
   align-self: center;
   justify-self: center;
-  margin: 0;
   transition-duration: 0s;
+  margin: 0 0 0 20px;
 
   &:checked {
     border: none;
-    background: url("../../icons/icon-checkbox.svg") center/75% no-repeat var(--color-dark);
+    background: url("../../icons/icon-checkbox.svg") center/65% no-repeat var(--color-dark);
 
     & + .todo__item-label {
       color: var(--color-gray-2);
@@ -57,11 +88,28 @@
   grid-area: label;
   height: 24px;
   display: block;
+  font-size: 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: default;
-  transition-duration: calc(var(--transition-duration) * 2);
+  transition: height var(--transition-duration);
+  margin-top: 12px;
+  padding-right: 5px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 13px;
+    translate: 0 -50%;
+    width: 8px;
+    aspect-ratio: 1;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--color-green);
+    /*box-shadow: 0 0 3px  var(--color-green),  0 0 3px var(--color-green);*/
+  }
 
   &.is-opening {
     white-space: normal;
@@ -72,8 +120,9 @@
 }
 
 .todo__item-data {
-  font-family: var(--font-family-date), sans-serif;
-  font-size: 14px;
+  font-family: var(--font-family), sans-serif;
+  font-size: 12px;
+  margin-bottom: 12px;
 }
 
 .todo__item-unwrap-button {
@@ -81,14 +130,22 @@
   align-self: center;
   justify-self: center;
   width: 40px;
-  height: 102%;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
+  border-radius: var(--border-radius);
   background-color: transparent;
   cursor: default;
   padding: 0;
+  margin-right: 8px;
+
+  &.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition-duration: 0s;
+  }
 
   & svg {
     width: 20px;
@@ -105,13 +162,14 @@
   position: relative;
   grid-area: delete-button;
   width: 40px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  align-self: center;
+  justify-self: center;
   color: var(--color-dark);
   border: none;
-  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  border-radius: var(--border-radius);
   background-color: transparent;
   margin-left: auto;
   padding: 0;
@@ -123,7 +181,7 @@
     width: 1px;
     height: 70%;
     position: absolute;
-    left: 0;
+    left: -3px;
     top: 50%;
     translate: 0 -50%;
     background-color: var(--color-gray-3);
@@ -153,6 +211,10 @@
   .todo__item:hover {
     translate: 0 -2px;
     box-shadow: 7px 7px 10px var(--color-gray-4);
+
+    &::before {
+      background-color: var(--color-gray-5);
+    }
   }
 
   .todo__item-unwrap-button:hover {
@@ -179,5 +241,23 @@
 
   100% {
     width: 100%;
+  }
+}
+
+@keyframes scale {
+  0% {
+    scale: 1
+  }
+
+  /*10% {*/
+  /*  scale: 1.03*/
+  /*}*/
+
+  /*90% {*/
+  /*  scale: 1.03*/
+  /*}*/
+
+  100% {
+    scale: 1.02
   }
 }

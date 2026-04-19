@@ -35,7 +35,7 @@
       <input
         class="todo__field-input"
         id="new-task"
-        maxlength="50"
+        maxlength="100"
         autocomplete="off"
         placeholder=" "
         data-js-todo-new-task-input
@@ -91,10 +91,62 @@
     class="todo__list"
     data-js-todo-list
   ></ul>
+
   <div
     class="todo__empty-message"
     data-js-todo-empty-message
   ></div>
+  <div class="todo__priority">
+    <h2 class="todo__priority-title">Priority</h2>
+    <ul class="todo__priority-list">
+      <li class="todo__priority-item priority-item">
+
+        <label
+          class="todo__priority-label"
+          for="green"
+          data-js-todo-priority-label
+        >
+          <input
+            class="todo__priority-radio radio-green"
+            type="radio"
+            name="priority"
+            id="green"
+            data-js-todo-priority-radio
+          />
+        </label>
+      </li>
+      <li class="todo__priority-item priority-item">
+        <label
+          class="todo__priority-label"
+          for="yellow"
+          data-js-todo-priority-label
+        >
+          <input
+            class="todo__priority-radio radio-yellow"
+            type="radio"
+            name="priority"
+            id="yellow"
+            data-js-todo-priority-radio
+          />
+        </label>
+      </li>
+      <li class="todo__priority-item priority-item">
+        <label
+          class="todo__priority-label"
+          for="red"
+          data-js-todo-priority-label
+        >
+          <input
+            class="todo__priority-radio radio-red"
+            type="radio"
+            name="priority"
+            id="red"
+            data-js-todo-priority-radio
+          />
+        </label>
+      </li>
+    </ul>
+  </div>
 </div>
 </body>
 </html>

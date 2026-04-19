@@ -1,12 +1,15 @@
 .todo {
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   height: auto;
   display: flex;
   flex-direction: column;
   row-gap: 24px;
   border: var(--border);
-  border-radius: var(--border-radius);
+  /*border-radius: var(--border-radius);*/
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px var(--color-gray-3);
+  background-color: var(--color-wight);
   padding: 24px;
 }
 
@@ -42,7 +45,7 @@
 }
 
 .todo__list {
-  --listItemsRowGap: 8px;
+  --listItemsRowGap: 10px;
 
   display: flex;
   flex-direction: column;
@@ -51,6 +54,35 @@
   &:empty {
     display: none;
   }
+}
+
+.todo__priority {
+  align-self: center;
+  width: 100%;
+  max-width: 210px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+  /*color: var(--color-gray-1);*/
+  color: var(--color-gray-2);
+  border: var(--border);
+  border-radius: 40px;
+  background-color: transparent;
+  padding: 7px;
+}
+
+.todo__priority-title {
+  font-size: 16px;
+  user-select: none;
+}
+
+.todo__priority-list {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5px;
 }
 
 .todo__empty-message {

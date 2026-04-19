@@ -5,5 +5,6 @@
 
 @import "../styles/components/todo.css";
 @import "../styles/components/todo-item.css";
+@import "../styles/components/priority-item.css";
 @import "../styles/components/field.css";
 @import "../styles/components/button.css";
