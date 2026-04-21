@@ -16,9 +16,9 @@
 
   --color-orange: #e64b1e;
   --color-green: #10dd13;
-  --color-red: #e2344f;
   --color-yellow: #e4a12e;
-  --color-wight-blue: #4d91e7;
+  --color-red: #e2344f;
+  --color-wight-blue: #e6ebf3;
 
   --border: 1px solid var(--color-gray-3);
   --border-radius: 8px;
@@ -27,6 +27,9 @@
   --item-height: 46px;
 
   --text-box: trim-both cap alphabetic;
+
+  --box-shadow-1: 2px 2px 2px var(--color-wight-blue) , 2px 2px 2px var(--color-wight-blue) inset;
+  --box-shadow-2: 2px 2px 2px var(--color-wight-blue) , -2px -2px -2px var(--color-wight-blue);
 
   --transition-duration: 0.2s;
 }

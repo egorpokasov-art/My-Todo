@@ -6,7 +6,6 @@
   flex-direction: column;
   row-gap: 24px;
   border: var(--border);
-  /*border-radius: var(--border-radius);*/
   border-radius: 20px;
   box-shadow: 10px 10px 30px var(--color-gray-3);
   background-color: var(--color-wight);
@@ -48,7 +47,7 @@
   --listItemsRowGap: 10px;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   row-gap: var(--listItemsRowGap);
 
   &:empty {
@@ -64,11 +63,11 @@
   justify-content: center;
   align-items: center;
   column-gap: 10px;
-  /*color: var(--color-gray-1);*/
   color: var(--color-gray-2);
   border: var(--border);
   border-radius: 40px;
   background-color: transparent;
+  /*box-shadow: var(--box-shadow-1);*/
   padding: 7px;
 }
 
@@ -83,6 +82,7 @@
   justify-content: center;
   align-items: center;
   column-gap: 5px;
+  /*pointer-events: none;*/
 }
 
 .todo__empty-message {
