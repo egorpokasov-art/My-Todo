@@ -87,10 +87,57 @@
       Delete All
     </button>
   </div>
-  <ul
-    class="todo__list"
-    data-js-todo-list
-  ></ul>
+
+  <div class="todo__tabs">
+    <header class="todo__tabs-header">
+      <ul
+        class="todo__tabs-list"
+        data-js-todo-tabs-list
+      >
+        <li class="todo__tabs-item">
+          <button
+            class="todo__tabs-toggle-button is-active"
+            type="button"
+            data-js-todo-tabs-toggle-button
+            data-id="all"
+          >
+            All
+          </button>
+        </li>
+        <li class="todo__tabs-item">
+          <button
+            class="todo__tabs-toggle-button"
+            type="button"
+            data-js-todo-tabs-toggle-button
+            data-id="active"
+          >
+            Active
+          </button>
+        </li>
+        <li class="todo__tabs__item">
+          <button
+            class="todo__tabs-toggle-button"
+            type="button"
+            data-js-todo-tabs-toggle-button
+            data-id="completed"
+          >
+            Completed
+          </button>
+        </li>
+      </ul>
+    </header>
+    <div class="todo__tabs-body">
+      <div
+        class="todo__tabs-inner is-active"
+      >
+        <ul
+          class="todo__list"
+          data-js-todo-list
+        >
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <div
     class="todo__empty-message"

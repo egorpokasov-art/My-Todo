@@ -29,14 +29,6 @@ class Todo {
     // isGRed: 'is-red',
   }
 
-  // priorityColors = {
-  //   green: '--color-green',
-  //   yellow: '#e4a12e',
-  //   red: '#e2344f',
-  // }
-
-  // Colors = ['green', 'yellow', 'red']
-
   initialPriorityColor = 'green'
 
   itemLabelInitialHeight = '26px'
@@ -344,19 +336,10 @@ class Todo {
     const isItemCheckbox = target.matches(this.selectors.itemCheckbox)
     const item = target.closest(this.selectors.item)
     const itemCheckbox = item.querySelector(this.selectors.itemCheckbox)
-    // const itemLabel = item.querySelector(this.selectors.itemLabel)
 
     if (isItemCheckbox) {
       this.toggleCheckboxState(itemCheckbox.id)
     }
-
-    // if (!itemCheckbox.checked) {
-    //   itemLabel.classList.remove(this.stateClasses.isLineThrow)
-    // } else {
-    //   setTimeout(() => {
-    //     itemLabel.classList.add(this.stateClasses.isLineThrow)
-    //   }, 450)
-    // }
   }
 
   onTogglePriorityState = ({ target }) => {
@@ -396,3 +379,80 @@ class Todo {
 }
 
 new Todo()
+
+class Tabs extends Todo {
+  selectors = {
+    tabsList: '[data-js-todo-tabs-list]',
+    tabsToggleButton: '[data-js-todo-tabs-button]',
+  }
+
+  stateClasses = {
+    isActive: 'is-active',
+  }
+
+  localStorageKey = 'active-button'
+
+  constructor() {
+    super()
+    this.tabsToggleButtonElements = document.querySelectorAll(this.selectors.tabsToggleButton)
+
+    this.state = {
+      tabsButtons: [...this.tabsToggleButtonElements],
+      currentActiveButton: this.getActiveButtonFromLocalsStorage(),
+    }
+
+    console.log(this.state)
+
+    this.bindEvents()
+  }
+
+  getActiveButtonFromLocalsStorage() {
+
+  }
+
+  // saveActiveButtonToLocalsStorage() {
+  //   localStorage.setItem(this.localStorageKey, )
+  // }
+
+  getCurrentActiveButton() {
+    [...this.tabsToggleButtonElements].forEach(item => {
+      if (item.classList.contains(this.stateClasses.isActive)) {
+        return item
+      }
+    });
+  }
+
+  // toggleState = () => { }
+
+  // changeState = () => { }
+
+  onClick = ({ target }) => {
+    if (!target.matches(this.selectors.tabsToggleButton)) {
+      return
+    }
+
+    [...this.tabsToggleButtonElements].forEach(button => {
+      if (button.classList.contains(this.stateClasses.isActive)) {
+        button.classList.remove(this.stateClasses.isActive)
+      }
+
+      target.classList.add(this.stateClasses.isActive)
+    });
+
+    [...this.tabsToggleButtonElements].forEach(item => {
+      if (item.classList.contains(this.stateClasses.isActive)) {
+        item.classList.remove(this.stateClasses.isActive)
+      }
+
+      if (item.dataset.id === target.dataset.id) {
+        item.classList.add(this.stateClasses.isActive)
+      }
+    });
+  }
+
+  bindEvents() {
+    this.listElement.addEventListener('click', this.onClick)
+  }
+}
+
+new Tabs()
