@@ -1,3 +1,8 @@
+import { TodoTask } from './todo-task.js'
+import { TodoService } from './todo-service.js'
+import { TodoPresenter } from './todo-presenter.js'
+import { TodoUi } from './todo-ui.js'
+
 class Todo {
   selectors = {
     root: '[data-js-todo]',
@@ -24,9 +29,6 @@ class Todo {
     isDisappearing: 'is-disappearing',
     isOpening: 'is-opening',
     isHidden: 'is-hidden',
-    // isGreen: 'is-green',
-    // isYellow: 'is-yellow',
-    // isGRed: 'is-red',
   }
 
   initialPriorityColor = 'green'
@@ -104,8 +106,8 @@ class Todo {
     localStorage.setItem(this.localStoragePriorityColorKey, JSON.stringify(this.state.priorityColor))
   }
 
-  render() {
-    const items = this.state.filteredItems ?? this.state.items
+  render(stateItems) {
+    const items = this.state.filteredItems ?? stateItems
 
     this.listElement.innerHTML = items.map(({
       id, title, date, isChecked, isTitleTooLong, priorityItemColor
@@ -197,7 +199,7 @@ class Todo {
   }
 
   updateItems() {
-    this.render()
+    this.render(this.state.items)
     this.displayTotalTasks()
     this.toggleDeleteAllButtonState()
     this.manageInfo()
@@ -380,79 +382,136 @@ class Todo {
 
 new Todo()
 
-class Tabs extends Todo {
-  selectors = {
-    tabsList: '[data-js-todo-tabs-list]',
-    tabsToggleButton: '[data-js-todo-tabs-button]',
-  }
-
-  stateClasses = {
-    isActive: 'is-active',
-  }
-
-  localStorageKey = 'active-button'
-
-  constructor() {
-    super()
-    this.tabsToggleButtonElements = document.querySelectorAll(this.selectors.tabsToggleButton)
-
-    this.state = {
-      tabsButtons: [...this.tabsToggleButtonElements],
-      currentActiveButton: this.getActiveButtonFromLocalsStorage(),
-    }
-
-    console.log(this.state)
-
-    this.bindEvents()
-  }
-
-  getActiveButtonFromLocalsStorage() {
-
-  }
-
-  // saveActiveButtonToLocalsStorage() {
-  //   localStorage.setItem(this.localStorageKey, )
-  // }
-
-  getCurrentActiveButton() {
-    [...this.tabsToggleButtonElements].forEach(item => {
-      if (item.classList.contains(this.stateClasses.isActive)) {
-        return item
-      }
-    });
-  }
-
-  // toggleState = () => { }
-
-  // changeState = () => { }
-
-  onClick = ({ target }) => {
-    if (!target.matches(this.selectors.tabsToggleButton)) {
-      return
-    }
-
-    [...this.tabsToggleButtonElements].forEach(button => {
-      if (button.classList.contains(this.stateClasses.isActive)) {
-        button.classList.remove(this.stateClasses.isActive)
-      }
-
-      target.classList.add(this.stateClasses.isActive)
-    });
-
-    [...this.tabsToggleButtonElements].forEach(item => {
-      if (item.classList.contains(this.stateClasses.isActive)) {
-        item.classList.remove(this.stateClasses.isActive)
-      }
-
-      if (item.dataset.id === target.dataset.id) {
-        item.classList.add(this.stateClasses.isActive)
-      }
-    });
-  }
-
-  bindEvents() {
-    this.listElement.addEventListener('click', this.onClick)
-  }
-}
-
-new Tabs()
+// class Tabs extends Todo {
+//   selectors = {
+//     tabsList: '[data-js-todo-tabs-list]',
+//     tabsToggleButton: '[data-js-todo-tabs-button]',
+//   }
+//
+//   stateClasses = {
+//     isActive: 'is-active',
+//   }
+//
+//   tabsCategories = {
+//     all: 'all',
+//     active: 'active',
+//     completed: 'completed',
+//   }
+//
+//   localStorageKeys = {
+//     activeItems: 'active-items',
+//     completedItems: 'completed-items',
+//     activeButton: 'active-button',
+//   }
+//
+//   constructor() {
+//     super()
+//     this.tabsToggleButtonElements = document.querySelectorAll(this.selectors.tabsToggleButton)
+//
+//     this.state = {
+//       ...this.state,
+//       activeItems: this.getItemsFromLocalStorage(this.localStorageKeys.activeItems),
+//       completedItems: this.getItemsFromLocalStorage(this.localStorageKeys.completedItems),
+//       currentTab: this.getActiveButtonIdFromLocalsStorage(),
+//     }
+//
+//     this.bindEvents()
+//   }
+//
+//   getItemsFromLocalStorage(key) {
+//     const rawData = localStorage.getItem(key)
+//
+//     if (!rawData) {
+//       return []
+//     }
+//
+//     try {
+//       const parsedData = JSON.parse(rawData)
+//
+//       return Array.isArray(parsedData) ? parsedData : []
+//     } catch {
+//       key === this.localStorageKeys.activeItems
+//         ? console.error('active items parse error')
+//         : console.error('completed items parse error')
+//       return []
+//     }
+//   }
+//
+//   saveItemsToLocalStorage(key) {
+//     key === this.localStorageKeys.activeItems
+//       ? localStorage.setItem(this.localStorageKeys.activeItems, JSON.stringify(this.state.activeItems))
+//       : localStorage.setItem(this.localStorageKeys.completedItems, JSON.stringify(this.state.completedItems))
+//   }
+//
+//   getActiveButtonIdFromLocalsStorage() {
+//     return  localStorage.getItem(this.localStorageKeys.activeButton)
+//   }
+//
+//   saveActiveButtonToLocalsStorage() {
+//     localStorage.setItem(this.localStorageKeys.activeButton, this.state.currentTab)
+//   }
+//
+//   // getCurrentTab() {
+//   //   return [...this.tabsToggleButtonElements].forEach(item => {
+//   //     if (item.classList.contains(this.stateClasses.isActive)) {
+//   //       return item
+//   //     }
+//   //   });
+//   // }
+//
+//   // manageInfo() {
+//   //
+//   // }
+//
+//   changeState(currentTab) {
+//     this.state = {
+//       ...this.state,
+//       activeItems: this.state.items.filter(item => !item.isChecked),
+//       completedItems: this.state.items.filter(item => item.isChecked),
+//       currentTab: currentTab.dataset.id,
+//     }
+//     this.saveItemsToLocalStorage()
+//     this.saveActiveButtonToLocalsStorage()
+//   }
+//
+//   updateTabsItems(currentTabDataId) {
+//      switch (currentTabDataId) {
+//        case this.tabsCategories.all:
+//          super.render(this.state.items)
+//          break
+//
+//        case this.tabsCategories.active:
+//          super.render(this.state.activeItems)
+//          break
+//
+//        case this.tabsCategories.completed:
+//          super.render(this.state.completedItems)
+//          break
+//        default:
+//          break
+//      }
+//   }
+//
+//   onClick = ({ target }) => {
+//     if (!target.matches(this.selectors.tabsToggleButton)) {
+//       return
+//     }
+//
+//     const tabsToggleButtonElements = [...this.tabsToggleButtonElements]
+//
+//     tabsToggleButtonElements.forEach(button => {
+//       button.classList.remove(this.stateClasses.isActive)
+//     })
+//
+//     target.classList.add(this.stateClasses.isActive)
+//     this.changeState(target)
+//     this.updateTabsItems(target.dataset.id)
+//     // console.log(target.dataset.id)
+//   }
+//
+//   bindEvents() {
+//     this.listElement.addEventListener('click', this.onClick)
+//   }
+// }
+//
+// new Tabs()
