@@ -1,12 +1,12 @@
 export class TodoTask {
-  constructor(text, priorityColor) {
+  constructor(text, isLabelWrap, priorityColor) {
     this.id = crypto?.randomUUID() ?? Date.now().toString()
     this.text = text
     this.date = this.#getDate()
     this.priorityColor = priorityColor
     this.isChecked = false
     this.isPinned = false
-    this.isTitleTooLong = false
+    this.isLabelWrap = isLabelWrap
   }
 
   #getDate() {
@@ -17,17 +17,5 @@ export class TodoTask {
     const time = date.toLocaleString('ru-RU', { hour: "2-digit", minute: "2-digit" })
 
     return `${weekday}, ${month} ${day} at ${time}`
-  }
-
-  toggleCheckedState() {
-    this.isChecked = !this.isChecked
-  }
-
-  togglePinnedState() {
-    this.isPinned = !this.isPinned
-  }
-
-  toggleLengthState() {
-    this.isTitleTooLong = !this.isTitleTooLong
   }
 }

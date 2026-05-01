@@ -44,6 +44,8 @@
   /*}*/
 
   &.is-disappearing {
+    position: relative;
+    z-index: 100;
     opacity: 0;
     translate: 0 -75%;
     pointer-events: none;
