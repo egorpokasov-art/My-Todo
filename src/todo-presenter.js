@@ -1,7 +1,3 @@
-import {TodoUi} from "./todo-ui.js";
-import {TodoModel} from "./todo-model.js";
-import {TodoTask} from "./todo-task.js";
-
 export class TodoPresenter {
   infoMessages = {
     all: 'There are no tasks yet',
@@ -50,8 +46,8 @@ export class TodoPresenter {
     this.todoUi.displayDeleteAllButton(areItemsEmpty)
   }
 
-  getInfoMessage(currentTab) {
-    const areItemsEmpty = this.state.items?.length === 0
+  getInfoMessage(items, currentTab) {
+    const areItemsEmpty = items?.length === 0
     const areFilteredItemsEmpty = this.state.filteredItems?.length === 0
 
     return areItemsEmpty
@@ -65,10 +61,14 @@ export class TodoPresenter {
     return this.state.priorityColor
   }
 
+  getCurrentTab() {
+    return this.state.currentTab
+  }
+
   render() {
     const items =
       this.state.filteredItems ?? this.sortItemsByCategories(this.state.currentTab)
-    const infoMessage = this.getInfoMessage(this.state.currentTab)
+    const infoMessage = this.getInfoMessage(items, this.state.currentTab)
 
     this.todoUi.manageInfo(infoMessage)
     this.todoUi.render(items)
@@ -139,10 +139,6 @@ export class TodoPresenter {
   onTogglePriorityState = (priorityColor) => {
     this.todoModel.togglePriorityState(priorityColor)
     this.updateState()
-  }
-
-  onUnwrapButtonClick = () => {
-
   }
 
   onDeleteAllButtonClick = () => {

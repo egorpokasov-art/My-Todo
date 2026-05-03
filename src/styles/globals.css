@@ -9,6 +9,19 @@ body {
   background-color: var(--bg-color);
 }
 
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
+}
+
 input,
 textarea,
 select,
@@ -32,15 +45,90 @@ button {
   outline-offset: 4px;
 }
 
-.visually-hidden {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  margin: -1px !important;
-  border: 0 !important;
-  padding: 0 !important;
-  white-space: nowrap !important;
-  clip-path: inset(100%) !important;
-  clip: rect(0 0 0 0) !important;
-  overflow: hidden !important;
+:is(
+.button,
+.todo__tabs-toggle-button::after,
+.todo-item::after
+) {
+  &.theme--blue {
+    background: var(--linear-gradient-theme-1);
+  }
+
+  &.theme--orange {
+    background: var(--linear-gradient-theme-2);
+  }
+
+  &.theme--purple {
+    background: var(--linear-gradient-theme-3);
+  }
+
+  &.theme--green {
+    background: var(--linear-gradient-theme-4);
+  }
+}
+
+.todo {
+  &.theme--blue {
+    background-color: var(--bg-theme-1);
+  }
+
+  &.theme--orange {
+    background-color: var(--bg-theme-2);
+  }
+
+  &.theme--purple {
+    background-color: var(--bg-theme-3);
+  }
+
+  &.theme--green {
+    background-color: var(--bg-theme-4);
+  }
+}
+
+.todo__title {
+  &.theme--blue {
+    color: transparent;
+    background-clip: text;
+    background-image: var(--linear-gradient-theme-1);
+    box-shadow: 0 0 2px var();
+  }
+
+  &.theme--orange {
+    color: transparent;
+    background-clip: text;
+    background-image: var(--linear-gradient-theme-2);
+    box-shadow: 0 0 2px var();
+  }
+
+  &.theme--purple {
+    color: transparent;
+    background-clip: text;
+    background-image: var(--linear-gradient-theme-3);
+    box-shadow: 0 0 2px var();
+  }
+
+  &.theme--green {
+    color: transparent;
+    background-clip: text;
+    background-image: var(--linear-gradient-theme-4);
+    box-shadow: 0 0 2px var();
+  }
+}
+
+.todo__tabs-toggle-button.is-active {
+  &.theme--blue {
+    background-color: var(--color-light-blue);
+  }
+
+  &.theme--orange {
+    background-color: var(--color-light-orange);
+  }
+
+  &.theme--purple {
+    background-color: var(--color-light-purple);
+  }
+
+  &.theme--green {
+    background-color: var(--color-light-green);
+  }
 }

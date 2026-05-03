@@ -3,6 +3,10 @@
   --font-family-date: 'MonoCondensedC', sans-serif;
 
   --bg-color: #f5f5f5;
+  --bg-theme-1: #f8fafd;
+  --bg-theme-2: #fcf7f7;
+  --bg-theme-3: #fbf8fd;
+  --bg-theme-4: #f8fcf9;
 
   --color-wight: #fff;
   --color-black: #000;
@@ -13,18 +17,41 @@
   --color-gray-3: #d9d9d9;
   --color-gray-4: #e9e9e9;
   --color-gray-5: #f7f7f7;
+  --color-gray-6: #f5f4f4;
 
   --color-orange: #e64b1e;
   --color-green: #10dd13;
   --color-yellow: #e4a12e;
   --color-red: #e2344f;
-  --color-wight-blue: #e6ebf3;
+  --color-wight-blue: #a8caf0;
 
+  --color-light-blue: #e0e3ee;
+  --color-light-orange: #f2ebe6;
+  --color-light-purple: #e8e2ef;
+  --color-light-green: #deebe2;
+
+  --color-theme-blue-1: #43cbff;
+  --color-theme-blue-2: #0856cc;
+
+  --color-theme-orange-1: #e80505;
+  --color-theme-orange-2: #fd6b1d;
+
+  --color-theme-purple-1: #fa2af3;
+  --color-theme-purple-2: #b14cff;
+
+  --color-theme-green-1: #4aac69;
+  --color-theme-green-2: #00ff8c;
+
+  --linear-gradient-theme-1: linear-gradient(var(--color-theme-blue-1), var(--color-theme-blue-2));
+  --linear-gradient-theme-2: linear-gradient(var(--color-theme-orange-1), var(--color-theme-orange-2));
+  --linear-gradient-theme-3: linear-gradient(var(--color-theme-purple-1), var(--color-theme-purple-2));
+  --linear-gradient-theme-4: linear-gradient(var(--color-theme-green-1), var(--color-theme-green-2));
   --border: 1px solid var(--color-gray-3);
   --border-radius: 8px;
 
   --input-height: 40px;
-  --item-height: 46px;
+  --item-height: 73px;
+  --workingAreaheight: 350px;
 
   --text-box: trim-both cap alphabetic;
 

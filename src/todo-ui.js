@@ -1,9 +1,9 @@
-import {TodoPresenter} from "./todo-presenter.js";
-
 export class TodoUi {
   itemLabelInitialHeight = '26px'
 
   maxLabelTextContentLength = 30
+
+  initialTab = 'all'
 
   selectors = {
     root: '[data-js-todo]',
@@ -33,6 +33,7 @@ export class TodoUi {
     isOpening: 'is-opening',
     isHidden: 'is-hidden',
     isActive: 'is-active',
+    isSwiping: 'is-swiping',
   }
 
   constructor() {
@@ -214,6 +215,14 @@ export class TodoUi {
     }
   }
 
+  onUnwrapButtonClick = ({ target }) => {
+    const isUnwrapButtonElement = target.matches(this.selectors.itemUnwrapButton)
+
+    if (isUnwrapButtonElement) {
+      this.animateLabelHeight(target)
+    }
+  }
+
   onTogglePriorityState = ({target}) => {
     const isRadioElement = target.matches(this.selectors.priorityRadio)
 
@@ -225,8 +234,17 @@ export class TodoUi {
 
   onItemCheckboxChange = ({target}) => {
     const isCheckboxElement = target.matches(this.selectors.itemCheckbox)
+    const currentTab = this.todoPresenter.getCurrentTab()
 
-    if (isCheckboxElement) {
+    if (!isCheckboxElement) return
+
+    if (currentTab !== this.initialTab) {
+      const item = target.closest(this.selectors.item)
+
+      item.classList.add(this.stateClasses.isSwiping)
+
+      setTimeout(() => this.todoPresenter.onItemCheckboxChange(target.id), 400)
+    } else {
       this.todoPresenter.onItemCheckboxChange(target.id)
     }
   }
@@ -249,18 +267,30 @@ export class TodoUi {
     }
   }
 
+  onTabActive = () => {
+    const currentTab = this.todoPresenter.getCurrentTab()
+    this.tabsToggleButtonElements.forEach(button => {
+      button.classList.remove(this.stateClasses.isActive)
+
+      if (button.dataset.id === currentTab) {
+        this.todoPresenter.onTabClick(currentTab)
+        button.classList.add(this.stateClasses.isActive)
+      }
+    })
+  }
+
   bindEvents() {
     this.newTaskFormElement.addEventListener('submit', this.onNewTaskFormSubmit)
     this.searchTaskFormElement.addEventListener('submit', this.onSearchTaskFormSubmit)
     this.searchTaskInputElement.addEventListener('input', this.onSearchTaskInput)
     this.listElement.addEventListener('change', this.onItemCheckboxChange)
-    // this.listElement.addEventListener('click', this.onUnwrapButtonClick)
+    this.listElement.addEventListener('click', this.onUnwrapButtonClick)
     this.listElement.addEventListener('click', this.onDeleteItemButtonClick)
     this.priorityListElement.addEventListener('click', this.onTogglePriorityState)
     this.deleteAllButtonElement.addEventListener('click', this.onDeleteAllButtonClick)
     this.tabsListElement.addEventListener('click', this.onTabClick)
     document.addEventListener('DOMContentLoaded', () => this.todoPresenter.render())
     document.addEventListener('DOMContentLoaded', () => this.showPriorityColorIsChecked())
-
+    document.addEventListener('DOMContentLoaded', () => this.onTabActive())
   }
 }
