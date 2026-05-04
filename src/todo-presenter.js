@@ -46,11 +46,11 @@ export class TodoPresenter {
     this.todoUi.displayDeleteAllButton(areItemsEmpty)
   }
 
-  getInfoMessage(items, currentTab) {
-    const areItemsEmpty = items?.length === 0
+  getInfoMessage( currentTab) {
+    const sortedItems = this.sortItemsByCategories(currentTab)?.length === 0
     const areFilteredItemsEmpty = this.state.filteredItems?.length === 0
 
-    return areItemsEmpty
+    return sortedItems
       ? this.infoMessages[currentTab]
       : areFilteredItemsEmpty
         ? this.infoMessages.filtered
@@ -61,14 +61,19 @@ export class TodoPresenter {
     return this.state.priorityColor
   }
 
+  getColorTheme() {
+    return this.state.themeColor
+  }
+
   getCurrentTab() {
     return this.state.currentTab
   }
 
   render() {
-    const items =
+    let items =
       this.state.filteredItems ?? this.sortItemsByCategories(this.state.currentTab)
-    const infoMessage = this.getInfoMessage(items, this.state.currentTab)
+
+    const infoMessage = this.getInfoMessage(this.state.currentTab)
 
     this.todoUi.manageInfo(infoMessage)
     this.todoUi.render(items)
@@ -76,17 +81,22 @@ export class TodoPresenter {
     this.displayTotalTasks()
   }
 
-  filter(items) {
+  filter(sortedItems) {
     const isSearchQueryEmpty = this.state.searchQuery.trim().length === 0
 
     if (!isSearchQueryEmpty) {
       const queryFormatted = this.state.searchQuery.trim().toLowerCase()
 
-      this.state.filteredItems = items.filter(({text}) => {
+      this.state.filteredItems = sortedItems.filter(({text}) => {
         const textFormatted = text.trim().toLowerCase()
 
         return textFormatted.includes(queryFormatted)
       })
+
+      // this.state.filteredItems?.length === 0 ?
+      //   this.resetFilter() :
+      //   this.state.filteredItems
+
       this.render()
     } else {
       this.resetFilter()
@@ -111,16 +121,21 @@ export class TodoPresenter {
       return
     }
 
-    this.todoModel.addItem(text, isLabelWrap, this.state.priorityColor)
+    this.todoModel.addItem(
+      text,
+      isLabelWrap,
+      this.state.priorityColor,
+      this.state.themeColor
+    )
     this.updateState()
     this.render()
   }
 
   onSearchTaskInput = (searchQuery) => {
     this.state.searchQuery = searchQuery
-    const sortItems = this.sortItemsByCategories(this.state.currentTab)
+    const sortedItems = this.sortItemsByCategories(this.state.currentTab)
 
-    this.filter(sortItems)
+    this.filter(sortedItems)
   }
 
   onDeleteItemButtonClick = (id) => {
@@ -139,6 +154,12 @@ export class TodoPresenter {
   onTogglePriorityState = (priorityColor) => {
     this.todoModel.togglePriorityState(priorityColor)
     this.updateState()
+  }
+
+  onToggleColorTheme = (themeColor) => {
+    this.todoModel.toggleColorTheme(themeColor)
+    this.updateState()
+    // this.render()
   }
 
   onDeleteAllButtonClick = () => {

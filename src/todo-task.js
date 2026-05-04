@@ -1,9 +1,10 @@
 export class TodoTask {
-  constructor(text, isLabelWrap, priorityColor) {
+  constructor(text, isLabelWrap, priorityColor, themeColor) {
     this.id = crypto?.randomUUID() ?? Date.now().toString()
     this.text = text
     this.date = this.#getDate()
     this.priorityColor = priorityColor
+    this.themeColor = themeColor
     this.isChecked = false
     this.isPinned = false
     this.isLabelWrap = isLabelWrap

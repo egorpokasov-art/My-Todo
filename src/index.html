@@ -25,38 +25,71 @@
 <div
   class="todo"
   data-js-todo
+  data-theme
 >
-  <h1 class="todo__title">To-Do List</h1>
+  <h1 class="todo__title" data-theme>To-Do List</h1>
 
-  <div class="todo__themes-radios">
+  <button
+    class="todo__default-theme-button"
+    type="button"
+    aria-label="default theme"
+    data-js-default-theme-button
+  >
+  </button>
+
+  <div class="todo__themes" data-js-todo-themes>
     <label
-      for="theme-blue"
+      for="theme--blue"
       class="todo__themes-label visually-hidden"
     >
       Blue theme
     </label>
-    <input name="theme" type="radio" id="theme-blue" class="todo__themes-radio theme--blue"/>
+    <input
+      name="theme"
+      type="radio"
+      id="theme--blue"
+      class="todo__themes-radio theme--blue"
+      data-js-todo-themes-radio
+    />
     <label
-      for="theme-orange"
+      for="theme--orange"
       class="todo__themes-label visually-hidden"
     >
       Orange theme
     </label>
-    <input name="theme" type="radio" id="theme-orange" class="todo__themes-radio theme--orange"/>
+    <input
+      name="theme"
+      type="radio"
+      id="theme--orange"
+      class="todo__themes-radio theme--orange"
+      data-js-todo-themes-radio
+    />
     <label
-      for="theme-purple"
+      for="theme--purple"
       class="todo__themes-label visually-hidden"
     >
       Purple theme
     </label>
-    <input name="theme" type="radio" id="theme-purple" class="todo__themes-radio theme--purple"/>
+    <input
+      name="theme"
+      type="radio"
+      id="theme--purple"
+      class="todo__themes-radio theme--purple"
+      data-js-todo-themes-radio
+    />
     <label
-      for="theme-green"
+      for="theme--green"
       class="todo__themes-label visually-hidden"
     >
       Green theme
     </label>
-    <input name="theme" type="radio" id="theme-green" class="todo__themes-radio theme--green"/>
+    <input
+      name="theme"
+      type="radio"
+      id="theme--green"
+      class="todo__themes-radio theme--green"
+      data-js-todo-themes-radio
+    />
   </div>
 
   <form
@@ -71,6 +104,7 @@
         autocomplete="off"
         placeholder=" "
         data-js-todo-new-task-input
+        data-theme
       />
       <label
         for="new-task"
@@ -81,6 +115,7 @@
       <button
         class="todo__add-new-task-button button"
         type="submit"
+        data-theme
       >
         Add
       </button>
@@ -99,6 +134,7 @@
         placeholder=" "
         type="search"
         data-js-todo-search-task-input
+        data-theme
       />
       <label
         for="search-task"
@@ -132,6 +168,7 @@
             type="button"
             data-js-todo-tabs-toggle-button
             data-id="all"
+            data-theme
           >
             All
           </button>
@@ -142,6 +179,7 @@
             type="button"
             data-js-todo-tabs-toggle-button
             data-id="active"
+            data-theme
           >
             Active
           </button>
@@ -152,6 +190,7 @@
             type="button"
             data-js-todo-tabs-toggle-button
             data-id="completed"
+            data-theme
           >
             Completed
           </button>

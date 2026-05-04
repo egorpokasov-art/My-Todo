@@ -1,7 +1,9 @@
 .todo {
+  position: relative;
   width: 100%;
   max-width: 500px;
   height: auto;
+  /*max-height: 100vh;*/
   display: flex;
   flex-direction: column;
   row-gap: 24px;
@@ -17,7 +19,25 @@
   }
 }
 
-.todo__themes-radios {
+.todo__title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: -10px;
+}
+
+.todo__default-theme-button {
+  position: absolute;
+  width: 30px;
+  aspect-ratio: 1;
+  border: var(--border);
+  border-radius: 50%;
+  top: 33px;
+  right: 24px;
+  padding: 0;
+  background-image: linear-gradient(45deg, var(--color-wight), var(--color-gray-4));
+}
+
+.todo__themes {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,31 +55,25 @@
   margin: 0;
 
   &.theme--blue {
-    background-image: var(--linear-gradient-theme-1);
+    background-image: var(--radios-theme-color-blue-gradient);
   }
 
   &.theme--orange {
-    background-image: var(--linear-gradient-theme-2);
+    background-image: var(--radios-theme-color-orange-gradient);
   }
 
   &.theme--purple {
-    background-image:  var(--linear-gradient-theme-3);
+    background-image:  var(--radios-theme-color-purple-gradient);
   }
 
   &.theme--green {
-    background-image:  var(--linear-gradient-theme-4);
+    background-image:  var(--radios-theme-color-green-gradient);
   }
 
   &:checked {
     scale: 1.2;
     box-shadow: 1px 3px 3px var(--color-wight-blue);
   }
-}
-
-.todo__title {
-  text-align: center;
-  font-size: 27px;
-  text-box: var(--text-box);
 }
 
 .todo__info {
@@ -125,6 +139,38 @@
       translate: -50% 0;
       background-color: var(--color-dark);
     }
+
+    &.theme--blue {
+      background-color: var(--color-light-blue);
+    }
+
+    &.theme--orange {
+      background-color: var(--color-light-orange);
+    }
+
+    &.theme--purple {
+      background-color: var(--color-light-purple);
+    }
+
+    &.theme--green {
+      background-color: var(--color-light-green);
+    }
+
+    &.theme--blue::after {
+      background-image: var(--linear-gradient-theme-1);
+    }
+
+    &.theme--orange::after {
+      background-image: var(--linear-gradient-theme-2);
+    }
+
+    &.theme--purple::after {
+      background-image: var(--linear-gradient-theme-3);
+    }
+
+    &.theme--green::after {
+      background-image: var(--linear-gradient-theme-4);
+    }
   }
 }
 
@@ -137,7 +183,7 @@
   row-gap: var(--listItemsRowGap);
   /*overflow-Y: auto;*/
   /*padding-top: 5px;*/
-  /*padding-inline: 2px;*/
+  /*padding-right: 2px;*/
 
   &:empty {
     display: none;

@@ -37,6 +37,7 @@
     height: 98%;
     border-radius: var(--border-radius);
     background-color: var(--color-dark);
+    transition-duration: calc(var(--transition-duration) * 2);
   }
 
   &.theme--blue::after {
@@ -70,6 +71,7 @@
     & ~ .todo__item {
       transform: translateY(calc((var(--item-height) + var(--listItemsRowGap) * 2) * -1));
       transition-delay: calc(var(--transition-duration) * 3);
+      transition-duration: calc(var(--transition-duration) * 2);
     }
   }
 

@@ -3,7 +3,7 @@
   width: 55px;
   height: var(--input-height);
   color: var(--color-wight);
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--border-radius);
   background-color: var(--color-dark);
   user-select: none;
@@ -13,30 +13,23 @@
 @media (hover: hover) {
   .button:hover {
     color: var(--color-dark);
+    border: 1px solid var(--color-dark);
     background-color: transparent;
 
-    /*&.theme--blue {*/
-    /*  color: var(--color-wight);*/
-    /*  border-image: var(--linear-gradient-theme-1);*/
-    /*  background-image: none;*/
-    /*}*/
+    &.theme--blue {
+      transition-duration: var(--transition-duration);
+    }
 
-    /*&.theme--orange {*/
-    /*  color: var(--color-wight);*/
-    /*  border-image: var(--linear-gradient-theme-2);*/
-    /*  background-image: none;*/
-    /*}*/
+    &.theme--orange {
+      transition-duration: var(--transition-duration);
+    }
 
-    /*&.theme--purple {*/
-    /*  color: var(--color-wight);*/
-    /*  border-image: var(--linear-gradient-theme-3);*/
-    /*  background-image: none;*/
-    /*}*/
+    &.theme--purple {
+      transition-duration: var(--transition-duration);
+    }
 
-    /*&.theme--green {*/
-    /*  color: var(--color-wight);*/
-    /*  border-image: var(--linear-gradient-theme-4);*/
-    /*  background-image: none;*/
-    /*}*/
+    &.theme--green {
+      transition-duration: var(--transition-duration);
+    }
   }
 }

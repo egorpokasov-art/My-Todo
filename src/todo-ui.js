@@ -7,6 +7,7 @@ export class TodoUi {
 
   selectors = {
     root: '[data-js-todo]',
+    defaultThemeButton: '[data-js-default-theme-button]',
     newTaskForm: '[data-js-todo-new-task-form]',
     newTaskInput: '[data-js-todo-new-task-input]',
     searchTaskForm: '[data-js-todo-search-task-form]',
@@ -25,6 +26,9 @@ export class TodoUi {
     priorityRadio: '[data-js-todo-priority-radio]',
     tabsList: '[data-js-todo-tabs-list]',
     tabsToggleButton: '[data-js-todo-tabs-toggle-button]',
+    themes: '[data-js-todo-themes]',
+    themesRadio: '[data-js-todo-themes-radio]',
+    themesElements: '[data-theme]',
   }
 
   stateClasses = {
@@ -36,9 +40,17 @@ export class TodoUi {
     isSwiping: 'is-swiping',
   }
 
+  themesClasses = {
+    'theme--blue': 'theme--blue',
+    'theme--orange': 'theme--orange',
+    'theme--purple': 'theme--purple',
+    'theme--green': 'theme--green',
+  }
+
   constructor() {
     this.todoPresenter = null
     this.rootElement = document.querySelector(this.selectors.root)
+    this.defaultThemeButton = this.rootElement.querySelector(this.selectors.defaultThemeButton)
     this.newTaskFormElement = this.rootElement.querySelector(this.selectors.newTaskForm)
     this.newTaskInputElement = this.rootElement.querySelector(this.selectors.newTaskInput)
     this.searchTaskFormElement = this.rootElement.querySelector(this.selectors.searchTaskForm)
@@ -51,6 +63,8 @@ export class TodoUi {
     this.priorityRadiosElements = this.rootElement.querySelectorAll(this.selectors.priorityRadio)
     this.tabsListElement = this.rootElement.querySelector(this.selectors.tabsList)
     this.tabsToggleButtonElements = document.querySelectorAll(this.selectors.tabsToggleButton)
+    this.themesParentElement = this.rootElement.querySelector(this.selectors.themes)
+    this.themesRadioElements = this.rootElement.querySelectorAll(this.selectors.themesRadio)
 
     this.bindEvents()
   }
@@ -69,6 +83,18 @@ export class TodoUi {
     })
   }
 
+  showColorThemeIsChecked() {
+    const currentColorTheme = this.todoPresenter.getColorTheme()
+
+    this.themesRadioElements.forEach(radio => {
+      if (radio.id === currentColorTheme) {
+        radio.checked = true
+      }
+    })
+
+    this.toggleThemesClasses(currentColorTheme)
+  }
+
   render(items) {
     this.listElement.innerHTML = items.map(({
       id,
@@ -76,9 +102,10 @@ export class TodoUi {
       date,
       isChecked,
       isLabelWrap,
-      priorityColor
+      priorityColor,
+      themeColor
     }) => `
-          <li class="todo__item" data-js-todo-item data-id="${id}">
+          <li class="todo__item ${themeColor}" data-js-todo-item data-id="${id}" data-theme>
             <div class="todo__item-priority-marker is-${priorityColor}"></div>
             <input
               type="checkbox"
@@ -228,7 +255,36 @@ export class TodoUi {
 
     if (isRadioElement) {
       this.todoPresenter.onTogglePriorityState(target.id)
-      target.classList.add()
+    }
+  }
+
+  toggleThemesClasses(themeColor) {
+    const themeChangedElements =
+      [...document.querySelectorAll(this.selectors.themesElements)]
+
+    themeChangedElements.forEach(element => {
+      const classes = [...element.classList]
+
+      for (const className of classes) {
+        if (className in this.themesClasses) {
+          element.classList.remove(className)
+        }
+      }
+    })
+
+    themeChangedElements.forEach(element => {
+      element.classList.add(
+        this.themesClasses[themeColor]
+      )
+    })
+  }
+
+  onToggleColorTheme = ({target}) => {
+    const isRadioElement = target.matches(this.selectors.themesRadio)
+
+    if (isRadioElement) {
+      this.todoPresenter.onToggleColorTheme(target.id)
+      this.toggleThemesClasses(target.id)
     }
   }
 
@@ -279,6 +335,10 @@ export class TodoUi {
     })
   }
 
+  onDefaultThemeButtonClick = () => {
+
+  }
+
   bindEvents() {
     this.newTaskFormElement.addEventListener('submit', this.onNewTaskFormSubmit)
     this.searchTaskFormElement.addEventListener('submit', this.onSearchTaskFormSubmit)
@@ -287,10 +347,12 @@ export class TodoUi {
     this.listElement.addEventListener('click', this.onUnwrapButtonClick)
     this.listElement.addEventListener('click', this.onDeleteItemButtonClick)
     this.priorityListElement.addEventListener('click', this.onTogglePriorityState)
+    this.themesParentElement.addEventListener('click', this.onToggleColorTheme)
     this.deleteAllButtonElement.addEventListener('click', this.onDeleteAllButtonClick)
     this.tabsListElement.addEventListener('click', this.onTabClick)
     document.addEventListener('DOMContentLoaded', () => this.todoPresenter.render())
     document.addEventListener('DOMContentLoaded', () => this.showPriorityColorIsChecked())
+    document.addEventListener('DOMContentLoaded', () => this.showColorThemeIsChecked())
     document.addEventListener('DOMContentLoaded', () => this.onTabActive())
   }
 }

@@ -20,6 +20,12 @@ export class TodoModel {
       defaultValue: 'green',
       logError: () => console.error('todo priority color parse error'),
     },
+    themeColor: {
+      key: 'todo--color-theme',
+      validate: (parsedData) => typeof parsedData === "string" ? parsedData : null,
+      defaultValue: '',
+      logError: () => console.error('todo color theme parse error'),
+    },
   }
 
   constructor() {
@@ -35,6 +41,10 @@ export class TodoModel {
       priorityColor: this.getFromLocalStorage(
         this.storage.priorityColor.key,
         this.storage.priorityColor
+      ),
+      themeColor: this.getFromLocalStorage(
+        this.storage.themeColor.key,
+        this.storage.themeColor
       ),
     }
   }
@@ -60,9 +70,9 @@ export class TodoModel {
     localStorage.setItem(key, JSON.stringify(value))
   }
 
-  addItem(text, isLabelWrap, priorityColor) {
+  addItem(text, isLabelWrap, priorityColor, themColor) {
     this.state.items.push(
-      new TodoTask(text, isLabelWrap, priorityColor)
+      new TodoTask(text, isLabelWrap, priorityColor, themColor)
     )
     this.saveToLocalStorage(this.storage.items.key, this.state.items)
   }
@@ -103,6 +113,19 @@ export class TodoModel {
   togglePriorityState(priorityColor) {
     this.state.priorityColor = priorityColor
     this.saveToLocalStorage(this.storage.priorityColor.key, this.state.priorityColor)
+  }
+
+  toggleColorTheme(themeColor) {
+    this.state.themeColor = themeColor
+
+    this.state.items = this.state.items.map(item => {
+      return {
+        ...item,
+        themeColor: themeColor,
+      }
+    })
+    this.saveToLocalStorage(this.storage.items.key, this.state.items)
+    this.saveToLocalStorage(this.storage.themeColor.key, this.state.themeColor)
   }
 
   toggleCurrentTabState = (currentTab) => {

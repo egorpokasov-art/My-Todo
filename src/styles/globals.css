@@ -45,28 +45,6 @@ button {
   outline-offset: 4px;
 }
 
-:is(
-.button,
-.todo__tabs-toggle-button::after,
-.todo-item::after
-) {
-  &.theme--blue {
-    background: var(--linear-gradient-theme-1);
-  }
-
-  &.theme--orange {
-    background: var(--linear-gradient-theme-2);
-  }
-
-  &.theme--purple {
-    background: var(--linear-gradient-theme-3);
-  }
-
-  &.theme--green {
-    background: var(--linear-gradient-theme-4);
-  }
-}
-
 .todo {
   &.theme--blue {
     background-color: var(--bg-theme-1);
@@ -90,45 +68,69 @@ button {
     color: transparent;
     background-clip: text;
     background-image: var(--linear-gradient-theme-1);
-    box-shadow: 0 0 2px var();
+    text-shadow: 0 0 7px var(--color-theme-blue-1);
   }
 
   &.theme--orange {
     color: transparent;
     background-clip: text;
     background-image: var(--linear-gradient-theme-2);
-    box-shadow: 0 0 2px var();
+    text-shadow: 0 0 7px var(--color-theme-orange-1);
   }
 
   &.theme--purple {
     color: transparent;
     background-clip: text;
     background-image: var(--linear-gradient-theme-3);
-    box-shadow: 0 0 2px var();
+    text-shadow: 0 0 7px var(--color-theme-purple-1);
   }
 
   &.theme--green {
     color: transparent;
     background-clip: text;
     background-image: var(--linear-gradient-theme-4);
-    box-shadow: 0 0 2px var();
+    text-shadow: 0 0 7px var(--color-theme-green-1);
   }
 }
 
-.todo__tabs-toggle-button.is-active {
+.todo__field-input {
   &.theme--blue {
-    background-color: var(--color-light-blue);
+    border-color: var(--radios-theme-color-blue-2);
+    /*transition-duration: var(--transition-duration);*/
   }
 
   &.theme--orange {
-    background-color: var(--color-light-orange);
+    border-color: var(--radios-theme-color-orange-1);
+    /*transition-duration: var(--transition-duration);*/
   }
 
   &.theme--purple {
-    background-color: var(--color-light-purple);
+    /*transition-duration: var(--transition-duration);*/
+    border-color: var(--radios-theme-color-purple-2);
   }
 
   &.theme--green {
-    background-color: var(--color-light-green);
+    /*transition-duration: var(--transition-duration);*/
+    border-color: var(--radios-theme-color-green-1);
+  }
+}
+
+.button,
+.todo__tabs-toggle-button::after,
+.todo-item::after {
+  &.theme--blue {
+    background: var(--linear-gradient-theme-1);
+  }
+
+  &.theme--orange {
+    background: var(--linear-gradient-theme-2);
+  }
+
+  &.theme--purple {
+    background: var(--linear-gradient-theme-3);
+  }
+
+  &.theme--green {
+    background: var(--linear-gradient-theme-4);
   }
 }
