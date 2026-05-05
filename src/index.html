@@ -29,14 +29,6 @@
 >
   <h1 class="todo__title" data-theme>To-Do List</h1>
 
-  <button
-    class="todo__default-theme-button"
-    type="button"
-    aria-label="default theme"
-    data-js-default-theme-button
-  >
-  </button>
-
   <div class="todo__themes" data-js-todo-themes>
     <label
       for="theme--blue"
@@ -88,6 +80,19 @@
       type="radio"
       id="theme--green"
       class="todo__themes-radio theme--green"
+      data-js-todo-themes-radio
+    />
+    <label
+      for="theme--default"
+      class="todo__themes-label visually-hidden"
+    >
+      Default theme
+    </label>
+    <input
+      name="theme"
+      type="radio"
+      id="theme--default"
+      class="todo__themes-radio theme--default"
       data-js-todo-themes-radio
     />
   </div>

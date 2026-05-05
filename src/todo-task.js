@@ -8,6 +8,7 @@ export class TodoTask {
     this.isChecked = false
     this.isPinned = false
     this.isLabelWrap = isLabelWrap
+    this.animation = true
   }
 
   #getDate() {

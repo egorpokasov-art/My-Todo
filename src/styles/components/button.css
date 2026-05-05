@@ -8,28 +8,43 @@
   background-color: var(--color-dark);
   user-select: none;
   cursor: default;
+  transition-duration: var(--transition-duration);
 }
 
 @media (hover: hover) {
   .button:hover {
-    color: var(--color-dark);
-    border: 1px solid var(--color-dark);
-    background-color: transparent;
-
-    &.theme--blue {
-      transition-duration: var(--transition-duration);
+    &.theme--blue:hover {
+      color: var(--radios-theme-color-blue-2);
+      border-color: var(--radios-theme-color-blue-2);
+      background-image: none;
+      background-color: transparent;
     }
 
     &.theme--orange {
-      transition-duration: var(--transition-duration);
+      color: var(--radios-theme-color-orange-1);
+      border-color: var(--radios-theme-color-orange-1);
+      background-image: none;
+      background-color: transparent;
     }
 
     &.theme--purple {
-      transition-duration: var(--transition-duration);
+      color: var(--radios-theme-color-purple-2);
+      border-color: var(--radios-theme-color-purple-2);
+      background-image: none;
+      background-color: transparent;
     }
 
     &.theme--green {
-      transition-duration: var(--transition-duration);
+      color: var(--radios-theme-color-green-1);
+      border-color: var(--radios-theme-color-green-1);
+      background-image: none;
+      background-color: transparent;
+    }
+
+    &.theme--default {
+      color: var(--color-dark);
+      border-color: var(--color-dark);
+      background-color: transparent;
     }
   }
 }

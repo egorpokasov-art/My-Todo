@@ -56,9 +56,9 @@
     background: var(--linear-gradient-theme-4);
   }
 
-  /*&:has(.todo__item-checkbox:checked) {*/
-  /*  animation: scale 0.3s ease;*/
-  /*}*/
+  &.is-appearing {
+    animation: appearing 0.1s ease-out;
+  }
 
   &.is-disappearing {
     position: relative;
@@ -70,21 +70,27 @@
 
     & ~ .todo__item {
       transform: translateY(calc((var(--item-height) + var(--listItemsRowGap) * 2) * -1));
-      transition-delay: calc(var(--transition-duration) * 3);
-      transition-duration: calc(var(--transition-duration) * 2);
+      transition-delay: var(--transition-duration);
+      transition-duration: calc(var(--transition-duration) * 3);
+    }
+  }
+
+  &.is-swiping {
+    scale: 0.4;
+    opacity: 0;
+    transition-timing-function: ease-out;
+    transition-duration: var(--transition-duration);
+    pointer-events: none;
+
+    & ~ .todo__item {
+      transform: translateY(calc((var(--item-height) + var(--listItemsRowGap) * 2) * -1));
+      transition-delay: var(--transition-duration);
+      transition-duration: calc(var(--transition-duration) * 3);
     }
   }
 
   &:has(.todo__item-label.is-opening) .todo__item-unwrap-button svg {
     rotate: 180deg;
-  }
-
-  &.is-swiping {
-    translate: -110% 0;
-    scale: 1.02;
-    opacity: 0;
-    transition-duration: calc(var(--transition-duration) * 2);
-    pointer-events: none;
   }
 }
 
@@ -284,7 +290,23 @@
     translate: 0 -2px;
     box-shadow: 7px 7px 10px var(--color-gray-4);
 
-    &::before {
+    &.theme--blue::before {
+      background-color: var(--bg-theme-1);
+    }
+
+    &.theme--orange::before {
+      background-color: var(--bg-theme-2);
+    }
+
+    &.theme--purple::before {
+      background-color: var(--bg-theme-3);
+    }
+
+    &.theme--green::before {
+      background-color: var(--bg-theme-4);
+    }
+
+    &.theme--default::before {
       background-color: var(--color-gray-5);
     }
   }
@@ -306,22 +328,12 @@
   }
 }
 
-@keyframes lineThrow {
+@keyframes appearing {
   0% {
-    width: 0;
+    scale: 0.7
   }
 
   100% {
-    width: 100%;
-  }
-}
-
-@keyframes scale {
-  0% {
     scale: 1
-  }
-
-  100% {
-    scale: 1.02
   }
 }

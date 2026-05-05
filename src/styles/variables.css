@@ -3,14 +3,15 @@
   --font-family-date: 'MonoCondensedC', sans-serif;
 
   --bg-color: #f5f5f5;
-  --bg-theme-1: #f8fafd;
+  --bg-theme-1: #f7f8ff;
   --bg-theme-2: #fcf7f7;
-  --bg-theme-3: #fbf8fd;
+  --bg-theme-3: #fbf7fe;
   --bg-theme-4: #f8fcf9;
 
   --color-wight: #fff;
   --color-black: #000;
   --color-dark: #2c2c2c;
+  --color-light-dark: rgba(44, 44, 44, 0.8);
 
   --color-gray-1: #b3b3b3;
   --color-gray-2: #757575;
@@ -30,7 +31,7 @@
   --color-light-purple: #e8e2ef;
   --color-light-green: #deebe2;
 
-  --color-theme-default: ;
+  --color-theme-default: linear-gradient(45deg, var(--color-wight), var(--color-gray-4));
 
   --color-theme-blue-1: #43cbff;
   --color-theme-blue-2: #0856cc;

@@ -46,7 +46,7 @@ export class TodoPresenter {
     this.todoUi.displayDeleteAllButton(areItemsEmpty)
   }
 
-  getInfoMessage( currentTab) {
+  getInfoMessage(currentTab) {
     const sortedItems = this.sortItemsByCategories(currentTab)?.length === 0
     const areFilteredItemsEmpty = this.state.filteredItems?.length === 0
 
@@ -73,10 +73,12 @@ export class TodoPresenter {
     let items =
       this.state.filteredItems ?? this.sortItemsByCategories(this.state.currentTab)
 
+    const reversedItems = [...items].reverse()
+
     const infoMessage = this.getInfoMessage(this.state.currentTab)
 
     this.todoUi.manageInfo(infoMessage)
-    this.todoUi.render(items)
+    this.todoUi.render(reversedItems)
     this.displayDeleteAllButton()
     this.displayTotalTasks()
   }
@@ -129,6 +131,7 @@ export class TodoPresenter {
     )
     this.updateState()
     this.render()
+    this.todoModel.toggleAnimateState()
   }
 
   onSearchTaskInput = (searchQuery) => {
@@ -148,6 +151,7 @@ export class TodoPresenter {
   onItemCheckboxChange = (id) => {
     this.todoModel.toggleCheckedState(id)
     this.updateState()
+
     this.render()
   }
 
@@ -159,7 +163,6 @@ export class TodoPresenter {
   onToggleColorTheme = (themeColor) => {
     this.todoModel.toggleColorTheme(themeColor)
     this.updateState()
-    // this.render()
   }
 
   onDeleteAllButtonClick = () => {

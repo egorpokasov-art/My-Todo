@@ -93,28 +93,6 @@ button {
   }
 }
 
-.todo__field-input {
-  &.theme--blue {
-    border-color: var(--radios-theme-color-blue-2);
-    /*transition-duration: var(--transition-duration);*/
-  }
-
-  &.theme--orange {
-    border-color: var(--radios-theme-color-orange-1);
-    /*transition-duration: var(--transition-duration);*/
-  }
-
-  &.theme--purple {
-    /*transition-duration: var(--transition-duration);*/
-    border-color: var(--radios-theme-color-purple-2);
-  }
-
-  &.theme--green {
-    /*transition-duration: var(--transition-duration);*/
-    border-color: var(--radios-theme-color-green-1);
-  }
-}
-
 .button,
 .todo__tabs-toggle-button::after,
 .todo-item::after {

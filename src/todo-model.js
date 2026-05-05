@@ -23,7 +23,7 @@ export class TodoModel {
     themeColor: {
       key: 'todo--color-theme',
       validate: (parsedData) => typeof parsedData === "string" ? parsedData : null,
-      defaultValue: '',
+      defaultValue: 'theme--default',
       logError: () => console.error('todo color theme parse error'),
     },
   }
@@ -128,6 +128,16 @@ export class TodoModel {
     this.saveToLocalStorage(this.storage.themeColor.key, this.state.themeColor)
   }
 
+  toggleAnimateState() {
+    for (const item of this.state.items) {
+      if (item.animation) {
+        item.animation = !item.animation
+        break
+      }
+    }
+    this.saveToLocalStorage(this.storage.items.key, this.state.items)
+  }
+
   toggleCurrentTabState = (currentTab) => {
     this.state.currentTab = currentTab
     this.saveToLocalStorage(this.storage.currentTab.key, this.state.currentTab)
@@ -141,11 +151,3 @@ export class TodoModel {
     this.state.items = []
   }
 }
-
-// localStorageKeys = {
-//   items: 'todo-items',
-//   activeItems: 'todo-active-items',
-//   completedItems: 'todo-completed-items',
-//   currentTabButton: 'todo-current-tab-button',
-//   priorityColor: 'todo-priority-color'
-// }
