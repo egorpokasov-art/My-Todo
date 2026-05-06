@@ -126,6 +126,8 @@ export class TodoModel {
     })
     this.saveToLocalStorage(this.storage.items.key, this.state.items)
     this.saveToLocalStorage(this.storage.themeColor.key, this.state.themeColor)
+
+    console.log(this.state.themeColor)
   }
 
   toggleAnimateState() {
@@ -149,5 +151,6 @@ export class TodoModel {
 
   resetItemsState() {
     this.state.items = []
+    this.saveToLocalStorage(this.storage.items.key, this.state.items)
   }
 }

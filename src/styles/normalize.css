@@ -165,7 +165,7 @@ button {
   [fill="none"],
   [fill^="url"]
 )) {
-  fill: currentColor;
+  /*fill: currentColor;*/
 }
 
 /**

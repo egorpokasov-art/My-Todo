@@ -93,7 +93,6 @@ button {
   }
 }
 
-.button,
 .todo__tabs-toggle-button::after,
 .todo-item::after {
   &.theme--blue {

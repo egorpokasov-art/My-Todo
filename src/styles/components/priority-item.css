@@ -1,7 +1,6 @@
 .todo__priority-item {
   display: flex;
   transition-duration: calc(var(--transition-duration) * 2);
-  /*pointer-events: none;*/
 
   &:has(.todo__priority-radio:checked) .todo__priority-radio {
     box-shadow: 0 0 5px currentColor, 0 0 5px currentColor, 0 0 5px currentColor;
@@ -17,12 +16,11 @@
   border-radius: 50%;
   background-color: transparent;
   cursor: default;
-  /*pointer-events: none;*/
 }
 
 .todo__priority-radio {
   appearance: none;
-  width: 18px;
+  width: 20px;
   aspect-ratio: 1;
   border: none;
   border-radius: inherit;
