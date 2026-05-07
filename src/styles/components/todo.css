@@ -351,10 +351,11 @@
   }
 
   .todo {
+    --calcViewportHeight: '';
+
     border: none;
     border-radius: 0;
-    min-height: 100vh;
-    max-height: 100vh;
+    height: var(--calcViewportHeight);
     row-gap: 20px;
     padding: 12px;
     box-shadow: none;
