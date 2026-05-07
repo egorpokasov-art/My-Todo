@@ -378,7 +378,7 @@
   .todo__list {
     position: relative;
     flex-grow: 1;
-    height: 50vh;
+    height: 45vh;
     overflow-Y: scroll;
     scrollbar-width: none;
     padding-bottom: 10px;
@@ -406,6 +406,6 @@
   }
 
   .todo__list {
-    height: 40vh;
+    height: 27vh;
   }
 }
