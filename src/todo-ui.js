@@ -228,6 +228,10 @@ export class TodoUi {
     this.todoPresenter.onNewTaskFormSubmit(textFormatted, isLabelWrap)
 
     this.resetFieldAfterSubmit()
+
+    this.toggleThemesClasses(
+      this.todoPresenter.getColorTheme()
+    )
   }
 
   onSearchTaskFormSubmit = (event) => {
@@ -238,6 +242,10 @@ export class TodoUi {
     const searchQuery = target.value
 
     this.todoPresenter.onSearchTaskInput(searchQuery)
+
+    this.toggleThemesClasses(
+      this.todoPresenter.getColorTheme()
+    )
   }
 
   onDeleteItemButtonClick = ({target}) => {
@@ -248,10 +256,14 @@ export class TodoUi {
 
       setTimeout(() => {
         this.todoPresenter.onDeleteItemButtonClick(item.dataset.id)
-      }, 400)
+      }, 500)
 
       item.classList.add(this.stateClasses.isDisappearing)
     }
+
+    this.toggleThemesClasses(
+      this.todoPresenter.getColorTheme()
+    )
   }
 
   onUnwrapButtonClick = ({ target }) => {
@@ -311,10 +323,14 @@ export class TodoUi {
 
       item.classList.add(this.stateClasses.isSwiping)
 
-      setTimeout(() => this.todoPresenter.onItemCheckboxChange(target.id), 300)
+      setTimeout(() => this.todoPresenter.onItemCheckboxChange(target.id), 400)
     } else {
       this.todoPresenter.onItemCheckboxChange(target.id)
     }
+
+    this.toggleThemesClasses(
+      this.todoPresenter.getColorTheme()
+    )
   }
 
   onDeleteAllButtonClick = () => {
@@ -332,6 +348,10 @@ export class TodoUi {
       })
 
       target.classList.add(this.stateClasses.isActive)
+
+      this.toggleThemesClasses(
+        this.todoPresenter.getColorTheme()
+      )
     }
   }
 

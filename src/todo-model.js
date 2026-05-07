@@ -149,6 +149,10 @@ export class TodoModel {
     return this.state
   }
 
+  getThemeColor() {
+    return this.state.themeColor
+  }
+
   resetItemsState() {
     this.state.items = []
     this.saveToLocalStorage(this.storage.items.key, this.state.items)

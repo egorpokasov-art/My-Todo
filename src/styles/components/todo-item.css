@@ -310,25 +310,29 @@
     translate: 0 -2px;
     box-shadow: 7px 7px 10px var(--color-gray-4);
 
-    &.theme--blue::before {
-      background-color: var(--bg-theme-1);
-    }
-
-    &.theme--orange::before {
-      background-color: var(--bg-theme-2);
-    }
-
-    &.theme--purple::before {
-      background-color: var(--bg-theme-3);
-    }
-
-    &.theme--green::before {
-      background-color: var(--bg-theme-4);
-    }
-
-    &.theme--default::before {
+    &::before {
       background-color: var(--color-gray-5);
     }
+
+    /*&.theme--blue::before {*/
+    /*  background-color: var(--bg-theme-1);*/
+    /*}*/
+
+    /*&.theme--orange::before {*/
+    /*  background-color: var(--bg-theme-2);*/
+    /*}*/
+
+    /*&.theme--purple::before {*/
+    /*  background-color: var(--bg-theme-3);*/
+    /*}*/
+
+    /*&.theme--green::before {*/
+    /*  background-color: var(--bg-theme-4);*/
+    /*}*/
+
+    /*&.theme--default::before {*/
+    /*  background-color: var(--color-gray-5);*/
+    /*}*/
   }
 
   .todo__item-unwrap-button:hover {
