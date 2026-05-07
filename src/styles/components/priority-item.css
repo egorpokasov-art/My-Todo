@@ -53,3 +53,20 @@
     box-shadow: 0 3px 5px currentColor;
   }
 }
+
+@media (max-width: 431px) {
+  .todo__priority {
+    height: 60px;
+    max-width: 280px;
+    column-gap: 17px;
+    box-shadow: none;
+  }
+
+  .todo__priority-list {
+    column-gap: 17px;
+  }
+
+  .todo__priority-radio {
+    width: 30px;
+  }
+}

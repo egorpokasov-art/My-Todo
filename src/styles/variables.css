@@ -1,4 +1,6 @@
 :root {
+  --calcViewportHeight: '';
+
   --font-family: "Inter", sans-serif;
   --font-family-date: 'MonoCondensedC', sans-serif;
 

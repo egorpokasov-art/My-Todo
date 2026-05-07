@@ -355,10 +355,24 @@
 
     border: none;
     border-radius: 0;
-    height: var(--calcViewportHeight);
+    height: calc(var(--calcViewportHeight) * 100);
     row-gap: 20px;
     padding: 12px;
     box-shadow: none;
+  }
+
+  .todo__title {
+    font-size: 32px;
+  }
+
+  .todo__themes {
+    column-gap: 15px;
+    margin-bottom: 10px;
+  }
+
+  .todo__themes-radio {
+    width: 35px;
+    aspect-ratio: 1;
   }
 
   .todo__list {

@@ -374,7 +374,7 @@ export class TodoUi {
   setViewportHeight = () => {
     let viewportHeight = window.innerHeight * 0.01
 
-    this.rootElement.style.setProperty('--calcViewportHeight', `${viewportHeight}px`)
+    document.documentElement.style.setProperty('--calcViewportHeight', `${viewportHeight}px`)
   }
 
   bindEvents() {
