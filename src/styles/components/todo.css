@@ -172,10 +172,6 @@
   display: flex;
   flex-direction: column;
   row-gap: var(--listItemsRowGap);
-  /*overflow-Y: auto;*/
-  /*padding: 10px 10px 10px 0;*/
-  /*padding-right: 2px;*/
-  /*transition-duration: calc(var(--transition-duration) * 2);*/
 
   &:empty {
     display: none;
@@ -380,7 +376,7 @@
   .todo__list {
     position: relative;
     flex-grow: 1;
-    height: 40vh;
+    height: 36vh;
     overflow-Y: scroll;
     scrollbar-width: none;
     padding-bottom: 10px;
@@ -404,7 +400,7 @@
 
 @media (max-width: 400px) {
   .todo__list {
-    height: 36vh;
+    height: 30vh;
   }
 }
 
