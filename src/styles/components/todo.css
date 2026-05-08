@@ -64,6 +64,7 @@
 }
 
 .todo__info {
+  height: 34px;
   display: flex;
   justify-content: space-between;
   column-gap: 16px;
@@ -78,11 +79,11 @@
 }
 
 .todo__delete-all-button {
+  height: 100%;
   border: none;
   border-radius: calc(var(--border-radius) * 3);
   background-color: transparent;
   cursor: default;
-  padding: 5px 15px;
 }
 
 .todo__delete-all-button:not(.is-visible) {
@@ -96,11 +97,39 @@
 }
 
 .todo__tabs-list {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   column-gap: 20px;
   transition-duration: 0.3s;
+
+  /*&::after {*/
+  /*  content: '';*/
+  /*  width: 52%;*/
+  /*  height: 2px;*/
+  /*  border: none;*/
+  /*  border-radius: 4px;*/
+  /*  position: absolute;*/
+  /*  top: 100%;*/
+  /*  left: 50%;*/
+  /*  translate: -50% 0;*/
+  /*  background-color: var(--color-dark);*/
+  /*}*/
+
+  /*&::before {*/
+  /*  content: '';*/
+  /*  width: 100%;*/
+  /*  height: 100%;*/
+  /*  position: absolute;*/
+  /*  top: 50%;*/
+  /*  left: 50%;*/
+  /*  translate: -50% -50%;*/
+  /*  padding: 5px 15px;*/
+  /*  border: none;*/
+  /*  border-radius: calc(var(--border-radius) * 5);*/
+  /*  background-color: var(--color-wight-blue);*/
+  /*}*/
 }
 
 .todo__tabs-item {
@@ -273,20 +302,6 @@
   color: var(--color-gray-1);
 }
 
-@media (hover: hover) {
-  .todo__themes-radio:hover {
-    translate: 0 -3px;
-  }
-
-  .todo__delete-all-button:hover {
-    color: var(--color-gray-1);
-  }
-
-  .todo__tabs-toggle-button:hover {
-    color: var(--color-gray-1);
-  }
-}
-
 @keyframes jump {
   from {
     translate: 0 0;
@@ -308,6 +323,20 @@
     translate: 0 0;
     scale: 1;
     opacity: 1;
+  }
+}
+
+@media (hover: hover) {
+  .todo__themes-radio:hover {
+    translate: 0 -3px;
+  }
+
+  .todo__delete-all-button:hover {
+    color: var(--color-gray-1);
+  }
+
+  .todo__tabs-toggle-button:hover {
+    color: var(--color-gray-1);
   }
 }
 
@@ -343,10 +372,6 @@
 }
 
 @media (max-width: 430px) {
-  body, html {
-    background-color: var(--color-wight);
-  }
-
   .todo {
     flex-grow: 1;
     border: none;
@@ -375,11 +400,10 @@
 
   .todo__list {
     position: relative;
-    flex-grow: 1;
-    height: 25vh;
+    height: 38vh;
     overflow-Y: scroll;
     scrollbar-width: none;
-    padding-bottom: 10px;
+    /*padding-bottom: 10px;*/
 
     &::-webkit-scrollbar {
       display: none;

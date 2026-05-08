@@ -56,8 +56,8 @@
 
 @media (max-width: 430px) {
   .todo__priority {
-    height: 65px;
-    max-width: 280px;
+    height: 60px;
+    max-width: 250px;
     column-gap: 17px;
     box-shadow: none;
   }
@@ -67,6 +67,6 @@
   }
 
   .todo__priority-radio {
-    width: 30px;
+    width: 27px;
   }
 }
