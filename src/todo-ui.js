@@ -68,7 +68,7 @@ export class TodoUi {
     this.themesRadioElements = this.rootElement.querySelectorAll(this.selectors.themesRadio)
 
     this.bindEvents()
-    this.setViewportHeight()
+    // this.setViewportHeight()
   }
 
   setTodoPresenter(todoPresenter) {
@@ -371,11 +371,11 @@ export class TodoUi {
     })
   }
 
-  setViewportHeight = () => {
-    let viewportHeight = window.innerHeight * 0.01
-
-    this.rootElement.style.setProperty('--calcViewportHeight', `${viewportHeight}px`)
-  }
+  // setViewportHeight = () => {
+  //   let viewportHeight = window.innerHeight * 0.01
+  //
+  //   this.rootElement.style.setProperty('--calcViewportHeight', `${viewportHeight}px`)
+  // }
 
   bindEvents() {
     this.newTaskFormElement.addEventListener('submit', this.onNewTaskFormSubmit)
@@ -392,6 +392,6 @@ export class TodoUi {
     document.addEventListener('DOMContentLoaded', () => this.showPriorityColorIsChecked())
     document.addEventListener('DOMContentLoaded', () => this.showColorThemeIsChecked())
     document.addEventListener('DOMContentLoaded', () => this.onTabActive())
-    window.addEventListener('resize', this.setViewportHeight)
+    // window.addEventListener('resize', this.setViewportHeight)
   }
 }
