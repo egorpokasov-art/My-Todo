@@ -380,7 +380,7 @@
   .todo__list {
     position: relative;
     flex-grow: 1;
-    height: 43vh;
+    height: 40vh;
     overflow-Y: scroll;
     scrollbar-width: none;
     padding-bottom: 10px;
@@ -399,6 +399,12 @@
       left: 0;
       box-shadow: 0 5px 15px var(--color-wight);
     }
+  }
+}
+
+@media (max-width: 400px) {
+  .todo__list {
+    height: 36vh;
   }
 }
 
