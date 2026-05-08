@@ -351,9 +351,8 @@
     flex-grow: 1;
     border: none;
     border-radius: 0;
-    min-height: 100vh;
     height: 100dvh;
-    /*min-height: -webkit-fill-available;*/
+    min-height: -webkit-fill-available;
     row-gap: 15px;
     padding: 12px;
     box-shadow: none;
@@ -377,7 +376,7 @@
   .todo__list {
     position: relative;
     flex-grow: 1;
-    height: 15vh;
+    height: 25vh;
     overflow-Y: scroll;
     scrollbar-width: none;
     padding-bottom: 10px;
